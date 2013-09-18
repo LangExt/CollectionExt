@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryExpr\OptionSeq\OptionSeqQueryExpr.cs" />
+    <Compile Include="QueryExpr\SeqOption\SeqOptionQueryExpr.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="LangExt">
