@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CA6F3D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeqExt.Tests", "SeqExt.Tests\SeqExt.Tests.csproj", "{C349EEDD-0F50-4BD0-85EA-844BAD91758B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{BE2AE2BF-CEF0-41FD-8330-578C4BAD3977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE2AE2BF-CEF0-41FD-8330-578C4BAD3977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE2AE2BF-CEF0-41FD-8330-578C4BAD3977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C349EEDD-0F50-4BD0-85EA-844BAD91758B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C349EEDD-0F50-4BD0-85EA-844BAD91758B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C349EEDD-0F50-4BD0-85EA-844BAD91758B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C349EEDD-0F50-4BD0-85EA-844BAD91758B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
