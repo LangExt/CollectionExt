@@ -126,7 +126,7 @@ namespace SeqExt
     /// 任意の要素を格納可能な単方向の連結リストです。
     /// このシーケンスはイミュータブルです。
     /// </summary>
-    public abstract class ConsList<T> : Seq<T>, IEquatable<ConsList<T>>
+    public abstract class ConsList<T> : SeqBase<T>, IEquatable<ConsList<T>>
     {
         ConsList() { }
         /// <summary>
@@ -185,15 +185,9 @@ namespace SeqExt
         /// <summary>
         /// 現在のオブジェクトを走査するためのEnumeratorを取得します。
         /// </summary>
-        /// <returns></returns>
-        public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+        protected override IEnumerator<T> GetEnumeratorImpl()
         {
             return new Enumerator(this);
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
 
         internal class Cons : ConsList<T>
