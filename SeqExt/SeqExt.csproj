@@ -38,7 +38,9 @@
     <Compile Include="ConsList.cs" />
     <Compile Include="IEnumerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomAccessSeq.cs" />
     <Compile Include="SeqBase.cs" />
+    <Compile Include="Mutable\VarArray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="LangExt">
