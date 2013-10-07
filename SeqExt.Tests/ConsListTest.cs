@@ -14,6 +14,7 @@ namespace SeqExt.Tests
             ConsList<int> nil = ConsList.Nil;
             Assert.That(nil, Is.Empty);
             Assert.That(ConsList<int>.Nil, Is.Empty);
+            Assert.That(ConsList.Empty<int>(), Is.Empty);
             Assert.That(ConsList.Create<string>(), Is.Empty);
         }
 
@@ -28,6 +29,12 @@ namespace SeqExt.Tests
         }
 
         [Test]
+        public void Singletonで1要素のConsListが作れる()
+        {
+            Assert.That(ConsList.Singleton(10).ToArray(), Is.EqualTo(new[] { 10 }));
+        }
+
+        [Test]
         public void CreateでConsListが作れる()
         {
             Assert.That(ConsList.Create(1).ToArray(), Is.EqualTo(new[] { 1 }));
@@ -35,6 +42,18 @@ namespace SeqExt.Tests
             Assert.That(ConsList.Create(1, 2, 3).ToArray(), Is.EqualTo(new[] { 1, 2, 3 }));
             Assert.That(ConsList.Create(1, 2, 3, 4).ToArray(), Is.EqualTo(new[] { 1, 2, 3, 4 }));
             Assert.That(ConsList.Create(1, 2, 3, 4, 5).ToArray(), Is.EqualTo(new[] { 1, 2, 3, 4, 5 }));
+        }
+
+        [Test]
+        public void InitでConsListが作れる()
+        {
+            Assert.That(ConsList.Init(5, n => n * 2), Is.EqualTo(ConsList.Create(0, 2, 4, 6, 8)));
+        }
+
+        [Test]
+        public void RepeatでConsListが作れる()
+        {
+            Assert.That(ConsList.Repeat(5, 3), Is.EqualTo(ConsList.Create(3, 3, 3, 3, 3)));
         }
 
         [TestCase(new int[0], new int[0], new int[0])]

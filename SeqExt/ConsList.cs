@@ -23,8 +23,11 @@ namespace SeqExt
         }
 
         /// <summary>空のConsListを作ります。</summary>
+        public static ConsList<T> Empty<T>() { return ConsList<T>.Nil; }
+
+        /// <summary>空のConsListを作ります。これの代わりに、Emptyを使った方がいいでしょう。</summary>
         public static ConsList<T> Create<T>() { return ConsList<T>.Nil; }
-        /// <summary>要素が1つ含まれたConsListを作ります。</summary>
+        /// <summary>要素が1つ含まれたConsListを作ります。これの代わりに、Singletonを使うことを考慮しましょう。</summary>
         public static ConsList<T> Create<T>(T x1) { return Cons(x1, ConsList<T>.Nil); }
         /// <summary>要素が2つ含まれたConsListを作ります。</summary>
         public static ConsList<T> Create<T>(T x1, T x2) { return Cons(x1, Cons(x2, ConsList<T>.Nil)); }
@@ -46,6 +49,42 @@ namespace SeqExt
                 res = new ConsList<T>.Cons(values[idx], res);
             }
             return res;
+        }
+
+        /// <summary>
+        /// fを元にn要素のシーケンスを生成します。
+        /// nが大きい順に(リストの後ろから)呼び出されるため、副作用のある関数を渡す場合は注意してください。
+        /// </summary>
+        public static ConsList<T> Init<T>(int n, Func<int, T> f)
+        {
+            if (n < 0) throw new ArgumentOutOfRangeException();
+            var res = ConsList<T>.Nil;
+            for (int i = 0; i < n; i++)
+            {
+                var m = n - i - 1;
+                res = new ConsList<T>.Cons(f(m), res);
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// 指定した要素を含むn要素のConsListを生成します。
+        /// </summary>
+        public static ConsList<T> Repeat<T>(int n, T t)
+        {
+            if (n < 0) throw new ArgumentOutOfRangeException();
+            var res = ConsList<T>.Nil;
+            for (int i = 0; i < n; i++)
+                res = new ConsList<T>.Cons(t, res);
+            return res;
+        }
+
+        /// <summary>
+        /// 指定した要素のみを含む1要素のConsListを生成します。
+        /// </summary>
+        public static ConsList<T> Singleton<T>(T t)
+        {
+            return new ConsList<T>.Cons(t, ConsList<T>.Nil);
         }
 
         /// <summary>
