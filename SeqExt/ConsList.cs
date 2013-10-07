@@ -48,6 +48,32 @@ namespace SeqExt
             return res;
         }
 
+        /// <summary>
+        /// 配列をConsListに変換します。
+        /// </summary>
+        public static ConsList<T> OfArray<T>(T[] array)
+        {
+            return Create(array);
+        }
+
+        /// <summary>
+        /// シーケンスをConsListに変換します。
+        /// 無限のシーケンスは扱えません。
+        /// </summary>
+        public static ConsList<T> OfSeq<T>(Seq<T> seq)
+        {
+            return Create(seq.ToArray());
+        }
+
+        /// <summary>
+        /// シーケンスをConsListに変換します。
+        /// 無限のシーケンスは扱えません。
+        /// </summary>
+        public static ConsList<T> ToConsList<T>(this Seq<T> self)
+        {
+            return Create(self.ToArray());
+        }
+
         /// <summary>使用しません。</summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static new bool Equals(object a, object b) { return object.Equals(a, b); }

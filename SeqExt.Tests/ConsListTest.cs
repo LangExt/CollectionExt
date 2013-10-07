@@ -95,5 +95,15 @@ namespace SeqExt.Tests
             var cons2 = ConsList.Create(ys);
             Assert.That(cons1.Equals(cons2), Is.EqualTo(expected));
         }
+
+        [TestCase(new int[0], new int[0])]
+        [TestCase(new[] { 1 }, new[] { 1 })]
+        [TestCase(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 4 })]
+        public void シーケンスをConsListに変換できる(int[] xs, int[] expected)
+        {
+            var seq = xs.ToSeq();
+            Assert.That(ConsList.OfSeq(seq), Is.EqualTo(ConsList.Create(expected)));
+            Assert.That(seq.ToConsList(), Is.EqualTo(ConsList.Create(expected)));
+        }
     }
 }
