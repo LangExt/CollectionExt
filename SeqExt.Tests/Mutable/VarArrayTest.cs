@@ -217,5 +217,30 @@ namespace SeqExt.Tests.Mutable
             array.ReverseThis();
             Assert.That(array.ToArray(), Is.EqualTo(expected));
         }
+
+        [TestCase(new string[0], "VarArray.Empty()")]
+        [TestCase(new[] { "" }, "VarArray()")]
+        [TestCase(new[] { "1", "", "2" }, "VarArray(1, , 2)")]
+        public void 文字列化できる(string[] xs, string expected)
+        {
+            var array = VarArray.Create(xs);
+            Assert.That(array.ToString(), Is.EqualTo(expected));
+        }
+
+        [TestCase(new int[0], new int[0], true)]
+        [TestCase(new int[0], new[] { 1 }, false)]
+        [TestCase(new[] { 1 }, new int[0], false)]
+        [TestCase(new[] { 1 }, new[] { 1 }, true)]
+        [TestCase(new[] { 1 }, new[] { 2 }, false)]
+        [TestCase(new[] { 1 }, new[] { 1, 0 }, false)]
+        [TestCase(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }, true)]
+        [TestCase(new[] { 1, 2, 3 }, new[] { 1, 2 }, false)]
+        [TestCase(new[] { 1, 2, 3 }, new[] { 1, 2, 3, 0 }, false)]
+        public void VarArrayどうしの比較ができる(int[] xs, int[] ys, bool expected)
+        {
+            var array1 = VarArray.Create(xs);
+            var array2 = VarArray.Create(ys);
+            Assert.That(array1.Equals(array2), Is.EqualTo(expected));
+        }
     }
 }

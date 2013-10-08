@@ -98,7 +98,7 @@ namespace SeqExt.Mutable
     /// <summary>
     /// 可変長配列です。
     /// </summary>
-    public sealed class VarArray<T> : SeqBase<T>, RandomAccessSeq<T>
+    public sealed class VarArray<T> : SeqBase<T>, RandomAccessSeq<T>, IEquatable<VarArray<T>>
     {
         readonly System.Collections.Generic.List<T> value;
 
@@ -228,5 +228,65 @@ namespace SeqExt.Mutable
         {
             this.value.Reverse();
         }
+
+        /// <summary>
+        /// 現在のオブジェクトが、同じ型の別のオブジェクトと等しいかどうかを判定します。
+        /// </summary>
+        /// <param name="other">このオブジェクトと比較する可変長配列</param>
+        /// <returns>現在のオブジェクトがotherで指定されたオブジェクトと等しい場合はtrue、それ以外の場合はfalse</returns>
+        public bool Equals(VarArray<T> other)
+        {
+            if (this.Size != other.Size)
+                return false;
+
+            for (int i = 0; i < this.Size; i++)
+            {
+                if (object.Equals(this[i], other[i]) == false)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj)
+        {
+            var other = obj as VarArray<T>;
+            if (other == null)
+                return false;
+            return this.Equals(other);
+        }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode()
+        {
+            var hash = 31;
+            foreach (var x in this)
+                hash ^= x == null ? 0 : x.GetHashCode();
+            return hash;
+        }
+
+        /// <summary>
+        /// このオブジェクトの文字列表現を取得します。
+        /// </summary>
+        public override string ToString()
+        {
+            if (this.Size == 0)
+                return "VarArray.Empty()";
+            var buf = new System.Text.StringBuilder("VarArray(");
+            foreach (var x in this)
+                buf.Append(x.ToStr()).Append(", ");
+            buf.Remove(buf.Length - 2, 2);
+            return buf.Append(")").ToString();
+        }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static new bool Equals(object a, object b) { return object.Equals(a, b); }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static new bool ReferenceEquals(object a, object b) { return object.ReferenceEquals(a, b); }
     }
 }
