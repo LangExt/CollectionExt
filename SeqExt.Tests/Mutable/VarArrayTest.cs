@@ -12,6 +12,8 @@ namespace SeqExt.Tests.Mutable
         public void 空のVarArrayが作れる()
         {
             Assert.That(new VarArray<int>(), Is.Empty);
+            Assert.That(VarArray.Empty<int>(), Is.Empty);
+            Assert.That(VarArray.Create<int>(), Is.Empty);
         }
 
         [TestCase(new int[0], new int[0])]

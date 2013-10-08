@@ -1,8 +1,100 @@
 ﻿using System;
+using System.ComponentModel;
 using LangExt;
 
 namespace SeqExt.Mutable
 {
+    public static class VarArray
+    {
+        /// <summary>空の可変長配列を作ります。</summary>
+        public static VarArray<T> Empty<T>() { return new VarArray<T>(); }
+
+        /// <summary>空の可変長配列を作ります。これの代わりに、Emptyを使った方がいいでしょう。</summary>
+        public static VarArray<T> Create<T>() { return new VarArray<T>(); }
+        /// <summary>要素が1つ含まれた可変長配列を作ります。これの代わりに、Singletonを使うことを考慮しましょう。</summary>
+        public static VarArray<T> Create<T>(T x1) { return new VarArray<T> { x1 }; }
+        /// <summary>要素が2つ含まれた可変長配列を作ります。</summary>
+        public static VarArray<T> Create<T>(T x1, T x2) { return new VarArray<T> { x1, x2 }; }
+        /// <summary>要素が3つ含まれた可変長配列を作ります。</summary>
+        public static VarArray<T> Create<T>(T x1, T x2, T x3) { return new VarArray<T> { x1, x2, x3 }; }
+        /// <summary>要素が4つ含まれた可変長配列を作ります。</summary>
+        public static VarArray<T> Create<T>(T x1, T x2, T x3, T x4) { return new VarArray<T> { x1, x2, x3, x4 }; }
+
+        /// <summary>
+        /// 引数に指定された要素が含まれた可変長配列を作ります。
+        /// </summary>
+        public static VarArray<T> Create<T>(params T[] values)
+        {
+            return new VarArray<T>(values.ToSeq());
+        }
+
+        /// <summary>
+        /// fを元にn要素の可変長配列を生成します。
+        /// </summary>
+        public static VarArray<T> Init<T>(int n, Func<int, T> f)
+        {
+            if (n < 0) throw new ArgumentOutOfRangeException();
+            var res = new VarArray<T>();
+            for (int i = 0; i < n; i++)
+                res.Add(f(i));
+            return res;
+        }
+
+        /// <summary>
+        /// 指定した要素を含むn要素の可変長配列を生成します。
+        /// </summary>
+        public static VarArray<T> Repeat<T>(int n, T t)
+        {
+            if (n < 0) throw new ArgumentOutOfRangeException();
+            var res = new VarArray<T>();
+            for (int i = 0; i < n; i++)
+                res.Add(t);
+            return res;
+        }
+
+        /// <summary>
+        /// 指定した要素のみを含む1要素の可変長配列を生成します。
+        /// </summary>
+        public static VarArray<T> Singleton<T>(T t)
+        {
+            return new VarArray<T> { t };
+        }
+
+        /// <summary>
+        /// 配列を可変長配列に変換します。
+        /// </summary>
+        public static VarArray<T> OfArray<T>(T[] array)
+        {
+            return Create(array);
+        }
+
+        /// <summary>
+        /// シーケンスを可変長配列に変換します。
+        /// 無限のシーケンスは扱えません。
+        /// </summary>
+        public static VarArray<T> OfSeq<T>(Seq<T> seq)
+        {
+            return new VarArray<T>(seq);
+        }
+
+        /// <summary>
+        /// シーケンスを可変長配列に変換します。
+        /// 無限のシーケンスは扱えません。
+        /// </summary>
+        public static VarArray<T> ToVarArray<T>(this Seq<T> self)
+        {
+            return new VarArray<T>(self);
+        }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static new bool Equals(object a, object b) { return object.Equals(a, b); }
+
+        /// <summary>使用しません。</summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static new bool ReferenceEquals(object a, object b) { return object.ReferenceEquals(a, b); }
+    }
+
     /// <summary>
     /// 可変長配列です。
     /// </summary>
